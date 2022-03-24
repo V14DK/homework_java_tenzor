@@ -90,7 +90,7 @@ public class Card implements Comparable<Card> {
     }
 
     public boolean Equals(Card otherCard){
-        return this.suit.equals(otherCard.suit)
+        return this.suit == otherCard.suit
                 && this.rank == otherCard.rank;
     }
 

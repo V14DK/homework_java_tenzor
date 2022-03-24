@@ -6,12 +6,12 @@ public class Main {
 //        Card card1 = new Card(16, "clubs");
 //        Card card2 = new Card("clubs");
         Deck deck = Deck.CreateDeck(true);
-        deck.SortDect();
+//        deck.SortDect();
         for (Card card: deck.deck)
             System.out.println(card.toString());
-        deck.ShakeDeck();
-        for (Card card: deck.deck)
-            System.out.println(card.toString());
+//        deck.ShakeDeck();
+//        for (Card card: deck.deck)
+//            System.out.println(card.toString());
 
     }
 }
