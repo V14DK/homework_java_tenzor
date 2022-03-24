@@ -3,9 +3,8 @@ package com.company;
 import java.util.*;
 
 public class Deck {
-    public ArrayList<Card> deck = new ArrayList<>();
-    public Set set = new HashSet();
-    private Random random = new Random();
+    private ArrayList<Card> deck = new ArrayList<>();
+    public Random random = new Random();
 
     private Deck(boolean withJokers){
         ArrayList<String> suits = new ArrayList<>(Arrays.asList("clubs","diamonds","spades", "hearts"));
@@ -15,7 +14,7 @@ public class Deck {
             this.deck.addAll(Arrays.asList(jok1, jok2));
         }
 
-        for (int i = 2; i < 14; i++){
+        for (int i = 2; i < 15; i++){
             for (int j = 0; j < suits.size(); j++){
                 this.deck.add(new Card(i, suits.get(j)));
             }
@@ -36,23 +35,33 @@ public class Deck {
         Collections.shuffle(this.deck, this.random);
     };
 
-    public void SortDect(){
+    public void SortDeck(){
         Collections.sort(this.deck);
     }
 
-//    public void DistributionCards(){
-//        return;
-//    };
+    public Card DistributionCard(){
+        int index = this.random.nextInt(this.deck.size());
+        Card card = this.deck.get(index);
+        this.deck.remove(index);
+        return card;
+    };
 //
-//    public static void BackToDeck(){
-//
-//    };
-//
-//    public boolean Absent(Card card){
-//        return this.deck.contains(card);
-//    };
-//
-//    public static void ToString(){
-//
-//    };
+    public void BackToDeck(Card card){
+        if (this.deck.contains(card))
+            System.out.println("The card is already in the deck");
+        else
+            this.deck.add(card);
+
+    };
+
+    public boolean IsEmpty(){ return this.deck.size() == 0; };
+
+    public String toString(){
+        String content = new String();
+        if (!this.IsEmpty()){
+            for (Card card: this.deck)
+                content += card.toString() + ", ";
+        }
+        return content;
+    };
 }
