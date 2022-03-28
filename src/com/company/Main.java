@@ -37,5 +37,20 @@ public class Main {
         }
         System.out.println(deck.toString());
         System.out.println("Deck is empty");
+
+        Folder folder = new Folder(null, "first");
+        Folder folder1 = new Folder(folder, "a");
+        Folder folder2 = new Folder(folder, "b");
+
+        File file = new File(folder,"text", "txt");
+        folder.AddFile(new File("table", "xlsx"));
+        folder1.AddFile(file);
+        folder1.AddFile(new File("page", "png"));
+        folder2.AddFile(new File("music", "mp4"));
+
+        System.out.println(folder.GetChildren().get(0).path);
+        System.out.println(file.path);
+        System.out.println(folder1.GetChildren().get(1).path);
+        System.out.println(folder2.GetChildren().get(0).path);
     }
 }

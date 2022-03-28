@@ -1,13 +1,8 @@
 package com.company;
-import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Objects;
 
-
-enum Suit {
-    clubs(0),
-    diamonds(1),
-    spades(2),
-    hearts(3),
+enum Rank {
     Jack(11),
     Queen(12),
     King(13),
@@ -16,9 +11,25 @@ enum Suit {
 
     final int position;
 
-    Suit(int position) {
-        this.position = position;
+    Rank(int position){ this.position = position; }
+
+    public static String toString(int rank) {
+        for (Rank val : values())
+            if (val.position == rank)
+                return val.toString();
+        throw new java.lang.Error("Wrong rank value");
     }
+}
+
+enum Suit {
+    clubs(0),
+    diamonds(1),
+    spades(2),
+    hearts(3);
+
+    final int position;
+
+    Suit(int position) { this.position = position; }
 
     public static boolean Contains(String suit) {
         for (Suit val : values())
@@ -27,11 +38,11 @@ enum Suit {
         return false;
     }
 
-    public static String ToString(int rank) {
+    public static String toString(int rank) {
         for (Suit val : values())
             if (val.position == rank)
                 return val.toString();
-        throw new java.lang.Error("Wrong rank value");
+        throw new java.lang.Error("Wrong suit value");
     }
 
     public static int SuitEquals(Card first, Card second) {
@@ -69,19 +80,14 @@ public class Card implements Comparable<Card> {
             throw new java.lang.Error("Wrong suit value");
     }
 
-    public int GetRank() {
-        return this.rank;
-    }
+    public int GetRank() { return this.rank; }
 
-    public String GetSuit() {
-        return this.suit;
-    }
+    public String GetSuit() { return this.suit; }
 
-    @Override
     public String toString() {
         String rank = Integer.toString(this.rank);
         if (this.rank > 10){
-            rank = Suit.ToString(this.rank);
+            rank = Rank.toString(this.rank);
             if (this.rank == 15)
                 return rank;
         }
@@ -89,14 +95,9 @@ public class Card implements Comparable<Card> {
 
     }
 
-    public boolean Equals(Card otherCard){
-        return this.suit == otherCard.suit
-                && this.rank == otherCard.rank;
-    }
+    public boolean Equals(Card otherCard){ return this.HashCode() == otherCard.HashCode(); }
 
-    public int HashCode(){
-        return 0;
-    }
+    public int HashCode(){ return Objects.hash(this.rank, this.suit); }
 
     public boolean StandartDeck(){
         return !(this.rank < 6) && !(this.rank > 14);
@@ -106,9 +107,7 @@ public class Card implements Comparable<Card> {
         return Integer.compare(this.rank, otherCard.rank);
     }
 
-    public int SuitEquals(Card otherCard){
-        return Suit.SuitEquals(this, otherCard);
-    }
+    public int SuitEquals(Card otherCard){ return Suit.SuitEquals(this, otherCard);}
 
     @Override
     public int compareTo(Card card){
